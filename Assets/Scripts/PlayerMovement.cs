@@ -6,11 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 5f;
+    public float health = 100f;
     public bool isGrounded;
     public Transform playerCamera;
     public GameObject Lazer;
     public float shootCooldown = 1f;
     private float lastShootingTime = -Mathf.Infinity;
+    public float damageCooldown = 2f;
+    private float lastDamageTime = -Mathf.Infinity;
     public float rotationSpeed = 10f;
 
     private Vector3 movement;
@@ -84,6 +87,14 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(12f);
+        }
+        else if (collision.gameObject.CompareTag("EnemyLazer"))
+        {
+            TakeDamage(6f);
+        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -91,6 +102,20 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+        }
+    }
+
+    private void TakeDamage(float amount)
+    {
+        if (Time.time - lastDamageTime < damageCooldown)
+            return;
+
+        lastDamageTime = Time.time;
+
+        health -= amount;
+        if (health <= 0f)
+        {
+            Destroy(gameObject);
         }
     }
 }

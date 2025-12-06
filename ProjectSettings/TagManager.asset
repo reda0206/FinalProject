@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Lazer
   - Enemy
+  - EnemyLazer
+  - ExplosiveBarrel
   layers:
   - Default
   - TransparentFX

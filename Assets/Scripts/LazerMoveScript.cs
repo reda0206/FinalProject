@@ -19,16 +19,25 @@ public class LazerMoveScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-        private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                Destroy(gameObject);
-            }
-            else if (collision.gameObject.CompareTag("Ground"))
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+
+        else if (collision.gameObject.CompareTag("ExplosiveBarrel"))
+        {
+            Destroy(gameObject);
         }
     }
+}
 

@@ -7,7 +7,7 @@ public class CameraFollowPlayer : MonoBehaviour
     public Transform player;
     public float mouseSensitivity = 3f;
     public float pitchMin = -45f;
-    public float pitchMax = 75f;
+    public float pitchMax = 90f;
 
     private float yaw;
     private float pitch;
