@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public float health = 100f;
     public bool isGrounded;
     public Transform playerCamera;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+    public float groundCheckRadius = 0.2f;
     public GameObject Lazer;
     public float shootCooldown = 1f;
     private float lastShootingTime = -Mathf.Infinity;
@@ -39,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (groundCheck != null)
+        {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        }
+
         if (playerCamera != null && rb != null)
         {
             float camYaw = playerCamera.eulerAngles.y;
@@ -83,25 +91,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-        else if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(12f);
         }
         else if (collision.gameObject.CompareTag("EnemyLazer"))
         {
             TakeDamage(6f);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
         }
     }
 

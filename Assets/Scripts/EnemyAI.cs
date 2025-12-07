@@ -37,37 +37,30 @@ public class EnemyAI : MonoBehaviour
         switch (state)
         {
             case EnemyState.Idle:
-                if (Vector3.Distance(player.position, transform.position) < 15f)
+                if (Vector3.Distance(player.position, transform.position) < 30f)
                 {
                     state = EnemyState.Shoot;
-                }
-                else if (Vector3.Distance(player.position, transform.position) < 10f)
-                {
-                    state = EnemyState.Chase;
                 }
                     break;
 
             case EnemyState.Shoot:
                 Attack();
-                if (Vector3.Distance(player.position, transform.position) > 30f)
+                if (Vector3.Distance(player.position, transform.position) > 60f)
                 {
                     state = EnemyState.Idle;
                 }
-                else if (Vector3.Distance(player.position, transform.position) < 10f)
+                else if (Vector3.Distance(player.position, transform.position) < 15f)
                 {
                     state = EnemyState.Chase;
                 }
                 break;
 
             case EnemyState.Chase:
+                Attack();
                 agent.SetDestination(player.position);
-                if (Vector3.Distance(player.position, transform.position) > 20f)
+                if (Vector3.Distance(player.position, transform.position) > 80f)
                 {
                     state = EnemyState.Shoot;
-                }
-                else if (Vector3.Distance(player.position, transform.position) > 30f)
-                {
-                    state = EnemyState.Idle;
                 }
                     break;
             default:
@@ -92,6 +85,7 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.CompareTag("Lazer"))
         {
             health -= 5f;
+            state = EnemyState.Chase;
             if (health <= 0f)
             {
                 Destroy(gameObject);

@@ -152,3 +152,4 @@ MonoBehaviour:
   Damage: 40
   explosionEffect: {fileID: 6976555616267707471, guid: 75bd9ecea2048244aace5d4b0bb307c1,
     type: 3}
+  chainExplosionDelay: 0.2

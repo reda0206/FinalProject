@@ -7,6 +7,7 @@ public class ExplosiveBarrelScript : MonoBehaviour
     public float explosionRadius;
     public int Damage;
     public GameObject explosionEffect;
+    public float chainExplosionDelay = 0.1f;
 
     private bool hasExploded = false;
 
@@ -14,16 +15,25 @@ public class ExplosiveBarrelScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Lazer"))
         {
-            Explode();
+            TriggerExplode(0f);
         }
     }
 
-    private void Explode()
+    private void TriggerExplode(float delay = 0f)
     {
         if (hasExploded)
             return;
 
         hasExploded = true;
+        StartCoroutine(Explode(delay));
+    }
+
+    private IEnumerator Explode(float delay)
+    { 
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
 
         if (explosionEffect != null)
         {
@@ -60,7 +70,17 @@ public class ExplosiveBarrelScript : MonoBehaviour
             ExplosiveBarrelScript otherBarrel = collider.GetComponent<ExplosiveBarrelScript>();
             if (otherBarrel != null && otherBarrel != this)
             {
-                otherBarrel.Explode();
+                otherBarrel.TriggerExplode(chainExplosionDelay);
+            }
+
+            DestructibleWallScript wall = collider.GetComponent<DestructibleWallScript>();
+            if (wall != null)
+            {
+                wall.health -= Damage;
+                if (wall.health <= 0f)
+                {
+                    Destroy(wall.gameObject);
+                }
             }
         }
 

@@ -9,11 +9,13 @@ TagManager:
   - Enemy
   - EnemyLazer
   - ExplosiveBarrel
+  - DestructibleWall
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

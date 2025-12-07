@@ -33,8 +33,20 @@ public class LazerMoveScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         else if (collision.gameObject.CompareTag("ExplosiveBarrel"))
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("DestructibleWall"))
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("EnemyLazer"))
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
