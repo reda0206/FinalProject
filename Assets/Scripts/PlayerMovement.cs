@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private float lastShootingTime = -Mathf.Infinity;
     public float damageCooldown = 2f;
     private float lastDamageTime = -Mathf.Infinity;
+    public float jumpCooldownn = 1f;
+    private float lastJumpTime = -Mathf.Infinity;
     public float rotationSpeed = 10f;
 
     private Vector3 movement;
@@ -34,9 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Time.time - lastJumpTime >= jumpCooldownn)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                lastJumpTime = Time.time;
+            }
         }
     }
 

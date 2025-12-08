@@ -50,7 +50,7 @@ public class ExplosiveBarrelScript : MonoBehaviour
             EnemyAI enemy = collider.GetComponent<EnemyAI>();
             if (enemy != null)
             {
-                enemy.health -= Damage;
+                enemy.health -= Damage * 2;
                 if (enemy.health <= 0f)
                 {
                     Destroy(enemy.gameObject);

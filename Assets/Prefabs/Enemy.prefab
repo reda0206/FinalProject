@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a27e8574954353449d1610a6844c53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 80
+  health: 60
   player: {fileID: 0}
   lazer: {fileID: 7368577399463458901, guid: 71e087d63a144f948b80afbf12376b70, type: 3}
   state: 0
