@@ -8,8 +8,16 @@ public class ExplosiveBarrelScript : MonoBehaviour
     public int Damage;
     public GameObject explosionEffect;
     public float chainExplosionDelay = 0.1f;
+    private Vector3 originalPos;
+
+    public bool IsImportant;
 
     private bool hasExploded = false;
+
+    void Start()
+    {
+        originalPos = transform.position;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -60,7 +68,7 @@ public class ExplosiveBarrelScript : MonoBehaviour
             PlayerMovement player = collider.GetComponent<PlayerMovement>();
             if (player != null)
             {
-                player.health -= Damage;
+                player.TakeDamage(40f);
                 if (player.health <= 0f)
                 {
                     Destroy(player.gameObject);
@@ -84,6 +92,14 @@ public class ExplosiveBarrelScript : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        if (IsImportant == false)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            hasExploded = false;
+            transform.position = originalPos;
+        }
     }
 }

@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void TakeDamage(float amount)
+    public void TakeDamage(float amount)
     {
         if (Time.time - lastDamageTime < damageCooldown)
             return;
