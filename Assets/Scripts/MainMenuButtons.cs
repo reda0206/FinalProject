@@ -7,7 +7,7 @@ public class MainMenuButtons : MonoBehaviour
 {
     public void PlayButton()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("Level1");
     }
 
     public void CreditsButton()

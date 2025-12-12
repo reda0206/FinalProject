@@ -7,7 +7,7 @@ public class WinScreenButtons : MonoBehaviour
 {
     public void PlayAgainButton()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("Level1");
     }
 
     public void QuitToMenuButton()
