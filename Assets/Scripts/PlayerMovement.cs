@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -117,7 +118,12 @@ public class PlayerMovement : MonoBehaviour
         health -= amount;
         if (health <= 0f)
         {
-            Destroy(gameObject);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            int deadSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            GameOverButtons.lastDeadSceneIndex = deadSceneIndex;
+
+            SceneManager.LoadScene("GameOverScene");
         }
     }
 }

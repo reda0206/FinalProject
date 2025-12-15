@@ -5847,7 +5847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpForce: 7.5
-  health: 200
+  health: 5
   isGrounded: 0
   playerCamera: {fileID: 330585546}
   groundCheck: {fileID: 1118584205}
