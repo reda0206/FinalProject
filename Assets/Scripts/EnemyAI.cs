@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
     public float spawnOffset = 1.5f;
     public AudioClip shootSound;
     public AudioClip hitSound;
+    public GameObject deathEffect;
 
     private NavMeshAgent agent;
 
@@ -92,6 +93,7 @@ public class EnemyAI : MonoBehaviour
             state = EnemyState.Chase;
             if (health <= 0f)
             {
+                Instantiate(deathEffect, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }

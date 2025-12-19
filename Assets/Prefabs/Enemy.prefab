@@ -263,3 +263,5 @@ MonoBehaviour:
   spawnOffset: 1.5
   shootSound: {fileID: 8300000, guid: f3249cd1c78238849b77134d33dea1a6, type: 3}
   hitSound: {fileID: 8300000, guid: 929d1af5650775543bb43b1d27cc403c, type: 3}
+  deathEffect: {fileID: 3893226720117095395, guid: f492cdf4a327ce84f937e13db7378ee3,
+    type: 3}
