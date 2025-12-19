@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameObject pauseMenuUi;
+
+    public GameObject pauseMenuPrefab;
+
+    private GameObject pauseMenuUi;
     public bool isPaused = false;
+    private List<AudioSource> audioSources = new List<AudioSource>();
+    public List<AudioSource> excludedAudioSources = new List<AudioSource>();
 
     private void Awake()
     {
@@ -37,27 +44,20 @@ public class GameManager : MonoBehaviour
         if (scene.name == "Level1" || scene.name == "Level2")
         {
             {
-            GameObject found = null;
-            try
-            {
-                found = GameObject.Find("PauseMenu");
-            }
-            catch
-            {
+                pauseMenuUi = GameObject.Find("PauseMenu") ?? GameObject.Find("PauseMenuUi");
 
-            }
+                if (pauseMenuUi == null && pauseMenuPrefab != null)
+                {
+                    Canvas canvas = FindObjectOfType<Canvas>();
+                    pauseMenuUi = canvas != null ? Instantiate(pauseMenuPrefab, canvas.transform) : Instantiate(pauseMenuPrefab);
+                    pauseMenuUi.name = pauseMenuPrefab.name;
+                }
 
-            if (found = null)
-            {
-                found = GameObject.Find("PauseMenuUi") ?? GameObject.Find("PauseMenu");
-            }
-            pauseMenuUi = found;
-
-            if (pauseMenuUi != null)
-            {
-                pauseMenuUi.SetActive(false);
-
-                AssignPauseMenuButtons();
+                if (pauseMenuUi != null)
+                {
+                    pauseMenuUi.SetActive(false);
+                    AssignPauseMenuButtons();
+                }
             }
         }
     }
@@ -87,14 +87,80 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
-    
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isPaused)
+            {
+                Pause();
+            }
+            else
+            {
+                Resume();
+            }
+        }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+        pauseMenuUi.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        var camFollow = Camera.main?.GetComponent<CameraFollowPlayer>();
+        if (camFollow != null)
+            camFollow.enabled = false;
+        PauseAudio();
+        Time.timeScale = 0f;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+        pauseMenuUi.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        var camFollow = Camera.main?.GetComponent<CameraFollowPlayer>();
+        if (camFollow != null)
+            camFollow.enabled = true;
+
+        ResumeAudio();
+        Time.timeScale = 1f;
+    }
+
+    public void PauseAudio()
+    {
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+        {
+            if (!excludedAudioSources.Contains(audio) && audio.isPlaying)
+            {
+                audio.Pause();
+                audioSources.Add(audio);
+            }
+        }
+    }
+
+    public void ResumeAudio()
+    {
+        for (int i = audioSources.Count - 1; i >= 0; i--)
+        {
+            if (audioSources[i])
+            {
+                audioSources[i].UnPause();
+                audioSources.RemoveAt(i);
+            }
+        }
+    }
+
+    public void QuitToMenuButton()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public void QuitGameButton()
+    {
+        Application.Quit();
     }
 }

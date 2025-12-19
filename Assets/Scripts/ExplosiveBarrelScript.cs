@@ -9,6 +9,7 @@ public class ExplosiveBarrelScript : MonoBehaviour
     public GameObject explosionEffect;
     public float chainExplosionDelay = 0.1f;
     private Vector3 originalPos;
+    public AudioClip explosionSound;
 
     public bool IsImportant;
 
@@ -24,6 +25,7 @@ public class ExplosiveBarrelScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Lazer"))
         {
             TriggerExplode(0f);
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
         }
     }
 

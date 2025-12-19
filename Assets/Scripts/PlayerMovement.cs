@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 5f;
     public float health = 100f;
+    public TextMeshProUGUI healthText;
     public bool isGrounded;
     public Transform playerCamera;
     public Transform groundCheck;
@@ -21,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldownn = 1f;
     private float lastJumpTime = -Mathf.Infinity;
     public float rotationSpeed = 10f;
+    public AudioClip shootSound;
+    public AudioClip jumpSound;
+    public AudioClip hitSound;
 
     private Vector3 movement;
     private Rigidbody rb;
@@ -33,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerCamera = Camera.main.transform;
         }
+        healthText.text = "Health: " + health.ToString("F0");
     }
 
     private void Update()
@@ -43,8 +49,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 lastJumpTime = Time.time;
+                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
         }
+        healthText.text = "Health: " + health.ToString("F0");
     }
 
     private void FixedUpdate()
@@ -93,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
             Quaternion spawnRotation = Quaternion.LookRotation(playerCamera.forward);
             Instantiate(Lazer, spawnPosition, spawnRotation);
             lastShootingTime = Time.time;
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
         }
     }
 
@@ -116,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         lastDamageTime = Time.time;
 
         health -= amount;
+        AudioSource.PlayClipAtPoint(hitSound, transform.position);
         if (health <= 0f)
         {
             Cursor.lockState = CursorLockMode.None;

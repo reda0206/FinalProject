@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
     public float attackCooldown = 3f;
     private float lastAttackTime = -Mathf.Infinity;
     public float spawnOffset = 1.5f;
+    public AudioClip shootSound;
+    public AudioClip hitSound;
 
     private NavMeshAgent agent;
 
@@ -77,6 +79,7 @@ public class EnemyAI : MonoBehaviour
 
             Vector3 direction = (player.position - transform.position).normalized;
             Instantiate(lazer, transform.position + direction, Quaternion.LookRotation(direction));
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
         }
     }
 
@@ -85,6 +88,7 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.CompareTag("Lazer"))
         {
             health -= 5f;
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
             state = EnemyState.Chase;
             if (health <= 0f)
             {
