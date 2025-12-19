@@ -5316,24 +5316,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b83412a073b9893428a6d42b80134398, type: 3}
---- !u!1 &602882548 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8594679861124184578, guid: 1c0a807ea2e6ad746b8a3112d73569b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 316136281292720416}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &602882554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602882548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4b7818f8c6d6cd4faf639197a08e22d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &603312962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5847,7 +5829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpForce: 7.5
-  health: 5
+  health: 200
   isGrounded: 0
   playerCamera: {fileID: 330585546}
   groundCheck: {fileID: 1118584205}
@@ -18042,11 +18024,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8594679861124184578, guid: 1c0a807ea2e6ad746b8a3112d73569b2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 602882554}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c0a807ea2e6ad746b8a3112d73569b2, type: 3}
 --- !u!1001 &4433676795825895260
 PrefabInstance:
